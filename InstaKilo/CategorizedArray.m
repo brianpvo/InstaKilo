@@ -10,7 +10,7 @@
 
 @implementation CategorizedArray
 
--(NSArray *)arrayCategory:(NSArray <ImageClass *> *)array :(NSString *)category {
++(NSArray <NSString *> *)arrayCategory:(NSArray <ImageClass *> *)array :(NSString *)category {
     NSMutableArray *subjectArray = [[NSMutableArray alloc] init];
     NSMutableArray *locationArray = [[NSMutableArray alloc] init];
     

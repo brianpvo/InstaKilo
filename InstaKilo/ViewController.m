@@ -10,12 +10,15 @@
 #import "CustomCollectionViewCell.h"
 #import "ImageClass.h"
 #import "HeaderView.h"
+#import "CategorizedArray.h"
 
 @interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) NSArray <ImageClass *> *imagesClass;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (nonatomic) NSArray <NSString *> *subjectArray;
+@property (nonatomic) NSArray <NSString *> *locationArray;
 
 @end
 
@@ -24,8 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-//    NSLog(@"%@", [self.imagesClass valueForKey:@"subject"]);
-    
+    self.subjectArray = [CategorizedArray arrayCategory:self.imagesClass :@"subject"];
+    self.locationArray = [CategorizedArray arrayCategory:self.imagesClass :@"location"];
     
     
 }
@@ -37,8 +40,24 @@
     return [self.imagesClass count];
 }
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    NSInteger number;
+    switch (self.segmentControl.selectedSegmentIndex) {
+        case 0:
+            number = 1;
+            break;
+        case 1:
+            number = self.subjectArray.count;
+            break;
+        case 2:
+            number = self.locationArray.count;
+            break;
+        default:
+            number = 1;
+            break;
+    }
+    return number;
 }
 
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -47,21 +66,25 @@
         HeaderView *headerView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                            withReuseIdentifier:@"HeaderView"
                                                                                   forIndexPath:indexPath];
+
+        NSString *sectionHeader;
         
-        switch (self.segmentControl.selectedSegmentIndex) {
+        switch (self.segmentControl.selectedSegmentIndex)
+        {
             case 0:
-                headerView.label.text = @"All Photos";
+                sectionHeader = @"All Photos";
                 break;
             case 1:
-                headerView.label.text = @"Subject";
+                sectionHeader =  [self.subjectArray objectAtIndex:indexPath.section];
                 break;
             case 2:
-                headerView.label.text = @"Location";
+                sectionHeader = [self.locationArray objectAtIndex:indexPath.section];
                 break;
-                
             default:
                 break;
         }
+        headerView.label.text = sectionHeader;
+
         return headerView;
     }
     

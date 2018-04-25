@@ -11,6 +11,6 @@
 
 @interface CategorizedArray : NSObject
 
--(NSArray *)arrayCategory:(NSArray <ImageClass *> *)array :(NSString *)category;
++(NSArray *)arrayCategory:(NSArray <ImageClass *> *)array :(NSString *)category;
 
 @end
