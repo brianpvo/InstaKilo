@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (nonatomic) NSArray <NSString *> *subjectArray;
 @property (nonatomic) NSArray <NSString *> *locationArray;
+@property (nonatomic) NSArray <ImageClass *> *subjectClassArray;
+@property (nonatomic) NSArray <ImageClass *> *locationClassArray;
+
 
 @end
 
@@ -29,6 +32,10 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.subjectArray = [CategorizedArray arrayCategory:self.imagesClass :@"subject"];
     self.locationArray = [CategorizedArray arrayCategory:self.imagesClass :@"location"];
+    
+    self.subjectClassArray = [CategorizedArray subjectImages:self.subjectArray ImageClassArray:self.imagesClass];
+
+    self.locationClassArray = [CategorizedArray subjectImages:self.locationArray ImageClassArray:self.imagesClass];
     
     
 }
@@ -96,7 +103,23 @@
     
     CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCellId" forIndexPath:indexPath];
     
-    UIImage *image = [UIImage imageNamed:[self.imagesClass objectAtIndex:indexPath.row].imageName];
+    UIImage *image;
+    
+    switch (self.segmentControl.selectedSegmentIndex) {
+        case 0:
+            image = [UIImage imageNamed:[self.imagesClass objectAtIndex:indexPath.row].imageName];
+            break;
+        case 1:
+            // change self.imageClass to subjectClassArray
+            image = [UIImage imageNamed:[self.imagesClass objectAtIndex:indexPath.row].imageName];
+            break;
+        case 2:
+            image = [UIImage imageNamed:[self.imagesClass objectAtIndex:indexPath.row].imageName];
+            break;
+            
+        default:
+            break;
+    }
     
     cell.imageView.image = image;
     

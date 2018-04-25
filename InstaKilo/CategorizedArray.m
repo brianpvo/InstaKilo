@@ -17,9 +17,11 @@
     if ([category isEqualToString:@"subject"]) {
         for (ImageClass* imageClass in array) {
             NSString* subjectName = imageClass.subject;
+            
             if (![subjectArray containsObject:subjectName]) {
                 [subjectArray addObject:subjectName];
             }
+            
         }
         return subjectArray;
     }
@@ -35,6 +37,38 @@
     
     return nil;
     
+}
+
++(NSArray <ImageClass *> *)locationImages:(NSArray <NSString *> *)array ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
+    
+    NSMutableArray *locationClassArray = [[NSMutableArray alloc] init];
+    
+    for (NSString* string in array) {
+        for (ImageClass *imageClass in imageClassArray) {
+        
+            if ([string isEqualToString:imageClass.location] && ![locationClassArray containsObject:imageClass]) {
+                
+                [locationClassArray addObject:imageClass];
+            }
+        }
+    }
+    return locationClassArray;
+}
+
++(NSArray <ImageClass *> *)subjectImages:(NSArray <NSString *> *)array ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
+    
+    NSMutableArray *subjectClassArray = [[NSMutableArray alloc] init];
+    
+    for (NSString* string in array) {
+        for (ImageClass *imageClass in imageClassArray) {
+            
+            if ([string isEqualToString:imageClass.subject] && ![subjectClassArray containsObject:imageClass]) {
+                
+                [subjectClassArray addObject:imageClass];
+            }
+        }
+    }
+    return subjectClassArray;
 }
 
 @end
