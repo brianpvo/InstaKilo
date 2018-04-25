@@ -17,6 +17,8 @@
 		7A8C9B4920910ADE0029FCA0 /* InstaKiloUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C9B4820910ADE0029FCA0 /* InstaKiloUITests.m */; };
 		7A8C9B5820910BFF0029FCA0 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C9B5720910BFF0029FCA0 /* CustomCollectionViewCell.m */; };
 		7A8C9B5E2091160C0029FCA0 /* ImageClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C9B5D2091160C0029FCA0 /* ImageClass.m */; };
+		7A8C9B61209122580029FCA0 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C9B60209122580029FCA0 /* HeaderView.m */; };
+		7A8C9B64209129160029FCA0 /* CategorizedArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C9B63209129160029FCA0 /* CategorizedArray.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,10 @@
 		7A8C9B5720910BFF0029FCA0 /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = "<group>"; };
 		7A8C9B5C2091160C0029FCA0 /* ImageClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageClass.h; sourceTree = "<group>"; };
 		7A8C9B5D2091160C0029FCA0 /* ImageClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageClass.m; sourceTree = "<group>"; };
+		7A8C9B5F209122580029FCA0 /* HeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
+		7A8C9B60209122580029FCA0 /* HeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		7A8C9B62209129160029FCA0 /* CategorizedArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategorizedArray.h; sourceTree = "<group>"; };
+		7A8C9B63209129160029FCA0 /* CategorizedArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategorizedArray.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,10 @@
 				7A8C9B5720910BFF0029FCA0 /* CustomCollectionViewCell.m */,
 				7A8C9B5C2091160C0029FCA0 /* ImageClass.h */,
 				7A8C9B5D2091160C0029FCA0 /* ImageClass.m */,
+				7A8C9B5F209122580029FCA0 /* HeaderView.h */,
+				7A8C9B60209122580029FCA0 /* HeaderView.m */,
+				7A8C9B62209129160029FCA0 /* CategorizedArray.h */,
+				7A8C9B63209129160029FCA0 /* CategorizedArray.m */,
 			);
 			path = InstaKilo;
 			sourceTree = "<group>";
@@ -273,9 +283,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A8C9B5E2091160C0029FCA0 /* ImageClass.m in Sources */,
+				7A8C9B61209122580029FCA0 /* HeaderView.m in Sources */,
 				7A8C9B2920910ADC0029FCA0 /* ViewController.m in Sources */,
 				7A8C9B3420910ADE0029FCA0 /* main.m in Sources */,
 				7A8C9B2620910ADC0029FCA0 /* AppDelegate.m in Sources */,
+				7A8C9B64209129160029FCA0 /* CategorizedArray.m in Sources */,
 				7A8C9B5820910BFF0029FCA0 /* CustomCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
