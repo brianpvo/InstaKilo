@@ -33,13 +33,6 @@
     self.subjectArray = [CategorizedArray arrayCategory:self.imagesClass :@"subject"];
     self.locationArray = [CategorizedArray arrayCategory:self.imagesClass :@"location"];
     
-    NSLog(@"%@", self.locationArray);
-    NSLog(@"%@", self.subjectArray);
-    
-    NSString *locationString = [self.locationArray objectAtIndex:3];
-
-   NSLog(@"%@",  [CategorizedArray locationImages:locationString ImageClassArray:self.imagesClass]);
-    
     
 }
 - (IBAction)segmentControlTapped:(id)sender {
