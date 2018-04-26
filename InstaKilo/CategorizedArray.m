@@ -40,7 +40,7 @@
     
 }
 
-+(NSArray <ImageClass *> *)locationImages:(NSString *)string ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
++(NSMutableArray <ImageClass *> *)locationImages:(NSString *)string ImageClassArray:(NSMutableArray <ImageClass *> *)imageClassArray {
     
     NSMutableArray *locationClassArray = [[NSMutableArray alloc] init];
     
@@ -54,7 +54,7 @@
     return locationClassArray;
 }
 
-+(NSArray <ImageClass *> *)subjectImages:(NSString *)string ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
++(NSMutableArray <ImageClass *> *)subjectImages:(NSString *)string ImageClassArray:(NSMutableArray <ImageClass *> *)imageClassArray {
     
     NSMutableArray *subjectClassArray = [[NSMutableArray alloc] init];
     

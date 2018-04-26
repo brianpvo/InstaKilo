@@ -15,12 +15,12 @@
 @interface ViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic) NSArray <ImageClass *> *imagesClass;
+@property (nonatomic) NSMutableArray <ImageClass *> *imagesClass;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (nonatomic) NSArray <NSString *> *subjectArray;
 @property (nonatomic) NSArray <NSString *> *locationArray;
-@property (nonatomic) NSArray <ImageClass *> *subjectClassArray;
-@property (nonatomic) NSArray <ImageClass *> *locationClassArray;
+@property (nonatomic) NSMutableArray <ImageClass *> *subjectClassArray;
+@property (nonatomic) NSMutableArray <ImageClass *> *locationClassArray;
 
 
 @end
@@ -30,11 +30,73 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.imagesClass = [[NSMutableArray alloc] initWithArray:@[
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image1" subject:@"Memes" location:@"Vancouver"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image2" subject:@"Memes" location:@"Vancouver"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image3" subject:@"Faces" location:@"Vancouver"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image4" subject:@"Memes" location:@"Vancouver"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image5" subject:@"Memes" location:@"Burnaby"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image6" subject:@"Memes" location:@"Burnaby"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image7" subject:@"Memes" location:@"Burnaby"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image8" subject:@"Memes" location:@"Surrey"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image9" subject:@"Memes" location:@"Surrey"],
+                                                               [[ImageClass alloc] initWithImageSubjectLocation:@"image10" subject:@"Faces" location:@"Toronto"]
+                                                               ]];
+    
     self.subjectArray = [CategorizedArray arrayCategory:self.imagesClass :@"subject"];
     self.locationArray = [CategorizedArray arrayCategory:self.imagesClass :@"location"];
     
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(processDoubleTap:)];
+    [doubleTapGesture setNumberOfTapsRequired:2];
+    [doubleTapGesture setNumberOfTouchesRequired:1];
+    doubleTapGesture.delaysTouchesBegan = YES;
+    [self.view addGestureRecognizer:doubleTapGesture];
+    
     
 }
+
+-(void)processDoubleTap:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        CGPoint point = [sender locationInView:self.collectionView];
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:point];
+        NSString *subjectString;
+        NSString *locationString;
+        
+        if (indexPath)
+        {
+            NSLog(@"Image was double tapped");
+            NSLog(@"%lu", indexPath.row);
+            
+            switch (self.segmentControl.selectedSegmentIndex) {
+                case 0:
+                    [self.imagesClass removeObjectAtIndex:indexPath.row];
+        
+                    break;
+                case 1:
+                    // NEEDS WORK
+                    //subjectString = [self.subjectArray objectAtIndex:indexPath.section];
+                    //self.subjectClassArray = [CategorizedArray subjectImages:subjectString ImageClassArray:self.imagesClass];
+                    NSLog(@"number of things before %lu", [self.subjectClassArray count]);
+                    [self.subjectClassArray removeObjectAtIndex:indexPath.row];;
+                    NSLog(@"number of things after %lu", [self.subjectClassArray count]);
+                    break;
+                case 2:
+                    // NEEDS WORK
+                    locationString = [self.subjectArray objectAtIndex:indexPath.section];
+                    self.locationClassArray = [CategorizedArray locationImages:locationString ImageClassArray:self.imagesClass];
+                    [self.locationClassArray removeObjectAtIndex:indexPath.row];
+                    break;
+                default:
+                    break;
+            }
+            [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+            [self.collectionView reloadData];
+            
+        }
+    }
+}
+
 - (IBAction)segmentControlTapped:(id)sender {
     [self.collectionView reloadData];
 }
@@ -148,23 +210,6 @@
     cell.imageView.image = image;
     
     return cell;
-}
-
-
-
--(NSArray <ImageClass *> *)imagesClass {
-    return @[
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image1" subject:@"Memes" location:@"Vancouver"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image2" subject:@"Memes" location:@"Vancouver"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image3" subject:@"Faces" location:@"Vancouver"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image4" subject:@"Memes" location:@"Vancouver"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image5" subject:@"Memes" location:@"Burnaby"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image6" subject:@"Memes" location:@"Burnaby"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image7" subject:@"Memes" location:@"Burnaby"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image8" subject:@"Memes" location:@"Surrey"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image9" subject:@"Memes" location:@"Surrey"],
-             [[ImageClass alloc] initWithImageSubjectLocation:@"image10" subject:@"Faces" location:@"Toronto"]
-             ];
 }
 
 
