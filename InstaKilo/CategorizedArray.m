@@ -28,6 +28,7 @@
     if ([category isEqualToString:@"location"]) {
         for (ImageClass* imageClass in array) {
             NSString* locationName = imageClass.location;
+            
             if (![locationArray containsObject:locationName]) {
                 [locationArray addObject:locationName];
             }
@@ -39,33 +40,28 @@
     
 }
 
-+(NSArray <ImageClass *> *)locationImages:(NSArray <NSString *> *)array ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
++(NSArray <ImageClass *> *)locationImages:(NSString *)string ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
     
     NSMutableArray *locationClassArray = [[NSMutableArray alloc] init];
     
-    for (NSString* string in array) {
-        for (ImageClass *imageClass in imageClassArray) {
+    for (ImageClass *imageClass in imageClassArray) {
         
-            if ([string isEqualToString:imageClass.location] && ![locationClassArray containsObject:imageClass]) {
-                
-                [locationClassArray addObject:imageClass];
-            }
+        if ([string isEqualToString:imageClass.location] && ![locationClassArray containsObject:imageClass]) {
+            
+            [locationClassArray addObject:imageClass];
         }
     }
     return locationClassArray;
 }
 
-+(NSArray <ImageClass *> *)subjectImages:(NSArray <NSString *> *)array ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
++(NSArray <ImageClass *> *)subjectImages:(NSString *)string ImageClassArray:(NSArray <ImageClass *> *)imageClassArray {
     
     NSMutableArray *subjectClassArray = [[NSMutableArray alloc] init];
     
-    for (NSString* string in array) {
-        for (ImageClass *imageClass in imageClassArray) {
-            
-            if ([string isEqualToString:imageClass.subject] && ![subjectClassArray containsObject:imageClass]) {
-                
-                [subjectClassArray addObject:imageClass];
-            }
+    for (ImageClass *imageClass in imageClassArray) {
+        
+        if ([string isEqualToString:imageClass.subject] && ![subjectClassArray containsObject:imageClass]) {
+            [subjectClassArray addObject:imageClass];
         }
     }
     return subjectClassArray;

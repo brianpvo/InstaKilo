@@ -13,10 +13,8 @@
 
 +(NSArray *)arrayCategory:(NSArray <ImageClass *> *)array :(NSString *)category;
 
-+(NSArray <ImageClass *> *)imageCategory:(NSArray <NSString *> *)array ImageClassArray:(NSArray <ImageClass *> *)imageClassArray;
++(NSArray <ImageClass *> *)locationImages:(NSString *)string ImageClassArray:(NSArray <ImageClass *> *)imageClassArray;
 
-+(NSArray <ImageClass *> *)locationImages:(NSArray <NSString *> *)array ImageClassArray:(NSArray <ImageClass *> *)imageClassArray;
-
-+(NSArray <ImageClass *> *)subjectImages:(NSArray <NSString *> *)array ImageClassArray:(NSArray <ImageClass *> *)imageClassArray;
++(NSArray <ImageClass *> *)subjectImages:(NSString *)string ImageClassArray:(NSArray <ImageClass *> *)imageClassArray;
 
 @end

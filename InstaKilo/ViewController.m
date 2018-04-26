@@ -33,9 +33,12 @@
     self.subjectArray = [CategorizedArray arrayCategory:self.imagesClass :@"subject"];
     self.locationArray = [CategorizedArray arrayCategory:self.imagesClass :@"location"];
     
-    self.subjectClassArray = [CategorizedArray subjectImages:self.subjectArray ImageClassArray:self.imagesClass];
+    NSLog(@"%@", self.locationArray);
+    NSLog(@"%@", self.subjectArray);
+    
+    NSString *locationString = [self.locationArray objectAtIndex:3];
 
-    self.locationClassArray = [CategorizedArray subjectImages:self.locationArray ImageClassArray:self.imagesClass];
+   NSLog(@"%@",  [CategorizedArray locationImages:locationString ImageClassArray:self.imagesClass]);
     
     
 }
@@ -44,7 +47,27 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.imagesClass count];
+    NSString *subjectString;
+    NSString *locationString;
+    
+    NSInteger number;
+    switch (self.segmentControl.selectedSegmentIndex) {
+        case 0:
+            number = [self.imagesClass count];
+            break;
+        case 1:
+            subjectString = [self.subjectArray objectAtIndex:section];
+            number = [CategorizedArray subjectImages:subjectString ImageClassArray:self.imagesClass].count;
+            break;
+        case 2:
+            locationString = [self.locationArray objectAtIndex:section];
+            number = [CategorizedArray locationImages:locationString ImageClassArray:self.imagesClass].count;
+            break;
+        default:
+            number = 0;
+            break;
+    }
+    return number;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -103,6 +126,9 @@
     
     CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCellId" forIndexPath:indexPath];
     
+    
+    NSString *subjectString;
+    NSString *locationString;
     UIImage *image;
     
     switch (self.segmentControl.selectedSegmentIndex) {
@@ -110,13 +136,18 @@
             image = [UIImage imageNamed:[self.imagesClass objectAtIndex:indexPath.row].imageName];
             break;
         case 1:
-            // change self.imageClass to subjectClassArray
-            image = [UIImage imageNamed:[self.imagesClass objectAtIndex:indexPath.row].imageName];
+            subjectString = [self.subjectArray objectAtIndex:indexPath.section];
+            self.subjectClassArray = [CategorizedArray subjectImages:subjectString ImageClassArray:self.imagesClass];
+            
+            image = [UIImage imageNamed:[self.subjectClassArray objectAtIndex:indexPath.row].imageName];
             break;
         case 2:
-            image = [UIImage imageNamed:[self.imagesClass objectAtIndex:indexPath.row].imageName];
-            break;
+            locationString = [self.locationArray objectAtIndex:indexPath.section];
+            self.locationClassArray = [CategorizedArray locationImages:locationString ImageClassArray:self.imagesClass];
             
+            image = [UIImage imageNamed:[self.locationClassArray objectAtIndex:indexPath.row].imageName];
+            break;
+
         default:
             break;
     }
@@ -127,10 +158,6 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(NSArray <ImageClass *> *)imagesClass {
     return @[
