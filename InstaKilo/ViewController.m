@@ -43,6 +43,7 @@
                                                                [[ImageClass alloc] initWithImageSubjectLocation:@"image10" subject:@"Faces" location:@"Toronto"]
                                                                ]];
     
+    
     self.subjectArray = [CategorizedArray arrayCategory:self.imagesClass :@"subject"];
     self.locationArray = [CategorizedArray arrayCategory:self.imagesClass :@"location"];
     
@@ -65,7 +66,6 @@
         
         if (indexPath)
         {
-            NSLog(@"Image was double tapped");
             NSLog(@"%lu", indexPath.row);
             
             switch (self.segmentControl.selectedSegmentIndex) {
@@ -74,18 +74,24 @@
         
                     break;
                 case 1:
-                    // NEEDS WORK
-                    //subjectString = [self.subjectArray objectAtIndex:indexPath.section];
-                    //self.subjectClassArray = [CategorizedArray subjectImages:subjectString ImageClassArray:self.imagesClass];
-                    NSLog(@"number of things before %lu", [self.subjectClassArray count]);
-                    [self.subjectClassArray removeObjectAtIndex:indexPath.row];;
-                    NSLog(@"number of things after %lu", [self.subjectClassArray count]);
+                    
+                    subjectString = [self.subjectArray objectAtIndex:indexPath.section];
+                    self.subjectClassArray = [CategorizedArray subjectImages:subjectString ImageClassArray:self.imagesClass];
+                    for (int i = 0; i < [self.imagesClass count]; i++) {
+                        if ([[self.imagesClass objectAtIndex:i] isEqual:[self.subjectClassArray objectAtIndex:indexPath.row]]) {
+                            [self.imagesClass removeObjectAtIndex:i];
+                        }
+                    }
                     break;
                 case 2:
-                    // NEEDS WORK
-                    locationString = [self.subjectArray objectAtIndex:indexPath.section];
+                    
+                    locationString = [self.locationArray objectAtIndex:indexPath.section];
                     self.locationClassArray = [CategorizedArray locationImages:locationString ImageClassArray:self.imagesClass];
-                    [self.locationClassArray removeObjectAtIndex:indexPath.row];
+                    for (int i = 0; i < [self.imagesClass count]; i++) {
+                        if ([[self.imagesClass objectAtIndex:i] isEqual:[self.locationClassArray objectAtIndex:indexPath.row]]) {
+                            [self.imagesClass removeObjectAtIndex:i];
+                        }
+                    }
                     break;
                 default:
                     break;
@@ -199,7 +205,7 @@
         case 2:
             locationString = [self.locationArray objectAtIndex:indexPath.section];
             self.locationClassArray = [CategorizedArray locationImages:locationString ImageClassArray:self.imagesClass];
-            
+            NSLog(@"in cellforitem %@", self.locationClassArray);
             image = [UIImage imageNamed:[self.locationClassArray objectAtIndex:indexPath.row].imageName];
             break;
 

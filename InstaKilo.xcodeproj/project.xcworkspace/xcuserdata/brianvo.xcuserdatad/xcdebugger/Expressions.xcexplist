@@ -9,6 +9,9 @@
          contextName = "-[ViewController processDoubleTap:]:ViewController.m">
          <PersistentStrings>
             <PersistentString
+               value = "self.locationClassArray">
+            </PersistentString>
+            <PersistentString
                value = "self.subjectClassArray">
             </PersistentString>
             <PersistentString
